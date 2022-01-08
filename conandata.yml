@@ -1,0 +1,7 @@
+sources:
+  "0.1.0":
+    url: "https://github.com/tschabo/pesconvert/archive/refs/tags/v0.1.0.tar.gz"
+    sha256: "d7174e1d2128ef670577808544b1c0a3fd9ffa9202801d3a43c0bd9f3bd448d5"
+patches:
+  "0.1.0":
+    - patch_file: "winlib.patch"

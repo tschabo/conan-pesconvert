@@ -1,0 +1,41 @@
+diff --git a/pes.h b/pes.h
+index b132773..772f03b 100644
+--- a/pes.h
++++ b/pes.h
+@@ -1,6 +1,16 @@
+ #ifndef PES_H
+ #define PES_H
+ 
++#if _WIN32
++#if PESCONVERT_EXPORT_LIB
++#define DLL_EXPORT_PESCONVERT __declspec(dllexport)
++#else
++#define DLL_EXPORT_PESCONVERT
++#endif
++#else
++#define DLL_EXPORT_PESCONVERT
++#endif
++
+ struct region {
+ 	const void *ptr;
+ 	unsigned int size;
+@@ -29,13 +39,13 @@ struct pes {
+ };
+ 
+ /* Input */
+-int read_file(int fd, struct region *region);
+-int read_path(const char *path, struct region *region);
+-int parse_pes(struct region *region, struct pes *pes);
++DLL_EXPORT_PESCONVERT int read_file(int fd, struct region *region);
++DLL_EXPORT_PESCONVERT int read_path(const char *path, struct region *region);
++DLL_EXPORT_PESCONVERT int parse_pes(struct region *region, struct pes *pes);
+ 
+ /* Output */
+-void output_svg(struct pes *pes);
+-void output_png(struct pes *pes);
+-void output_cairo(struct pes *pes, const char *filename, int size, double density);
++DLL_EXPORT_PESCONVERT void output_svg(struct pes *pes);
++DLL_EXPORT_PESCONVERT void output_png(struct pes *pes);
++DLL_EXPORT_PESCONVERT void output_cairo(struct pes *pes, const char *filename, int size, double density);
+ 
+ #endif /* PES_H */
