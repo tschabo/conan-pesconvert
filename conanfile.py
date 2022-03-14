@@ -16,7 +16,7 @@ class PesconvertConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
-    exports = {"CMakeLists.txt", "winlib.patch"}
+    exports_sources = {"CMakeLists.txt"}
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -33,7 +33,8 @@ class PesconvertConan(ConanFile):
         tc.generate()
 
     def build(self):
-        apply_conandata_patches(self)
+        if self.settings.os == "Windows":
+            apply_conandata_patches(self)
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
